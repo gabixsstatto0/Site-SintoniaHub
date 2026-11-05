@@ -1,178 +1,147 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-	<title></title>
-	<meta name="generator" content="LibreOffice 26.2.6.3 (Linux)"/>
-	<meta name="created" content="00:00:00"/>
-	<meta name="changed" content="00:00:00"/>
-	<style type="text/css">
-		@page { size: 8.5in 11in; margin: 0.79in }
-		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
-		pre { background: transparent }
-		pre.western { font-family: "Liberation Mono", monospace; font-size: 10pt }
-		pre.cjk { font-family: "Noto Sans Mono CJK SC", monospace; font-size: 10pt }
-		pre.ctl { font-family: "Liberation Mono", monospace; font-size: 10pt }
-	</style>
-</head>
-<body lang="en-US" link="#000080" vlink="#800000" dir="ltr"><pre class="western">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;pt-BR&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
-    &lt;title&gt;Cinder Hub - Key System&lt;/title&gt;
-    &lt;style&gt;
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinder Hub | Painel</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         body {
-            background-color: #050505;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden;
-            background: radial-gradient(circle at center, #111 0%, #000 100%);
+            background: #050505; color: #fff; display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; overflow: hidden; background: radial-gradient(circle at 50% 0%, #1a1a1a 0%, #000 70%);
         }
-        
         .container {
-            background: rgba(20, 20, 20, 0.7);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
-            width: 100%;
-            max-width: 450px;
-            text-align: center;
-            animation: fadeIn 0.8s ease-out;
+            background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 40px; border-radius: 24px; width: 100%; max-width: 420px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: fadeIn 0.6s ease-out;
         }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        h1 { font-size: 28px; margin-bottom: 10px; font-weight: 600; letter-spacing: 1px;}
-        p.subtitle { color: #888; font-size: 14px; margin-bottom: 30px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+        
+        h1 { font-size: 24px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.5px; }
+        p.sub { color: #888; font-size: 13px; margin-bottom: 25px; font-weight: 400; }
         
         input, select {
-            width: 100%;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            color: #fff;
-            font-size: 16px;
-            outline: none;
-            transition: all 0.3s ease;
-            margin-bottom: 15px;
+            width: 100%; padding: 14px 16px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px; color: #fff; font-size: 14px; outline: none; transition: all 0.3s;
+            margin-bottom: 12px; font-family: 'Inter', sans-serif;
         }
-        input:focus, select:focus { border-color: #fff; background: rgba(255, 255, 255, 0.1); box-shadow: 0 0 10px rgba(255,255,255,0.1); }
+        input:focus, select:focus { border-color: #fff; background: rgba(255, 255, 255, 0.08); }
         
         button {
-            width: 100%;
-            padding: 15px;
-            background: #fff;
-            color: #000;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 10px;
+            width: 100%; padding: 14px; background: #fff; color: #000; border: none; border-radius: 12px;
+            font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-bottom: 10px;
         }
-        button:hover { background: #ccc; transform: scale(1.02); }
+        button:hover { background: #d4d4d4; transform: scale(1.02); }
         button:active { transform: scale(0.98); }
+        button.secondary { background: transparent; border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; }
+        button.secondary:hover { background: rgba(255, 255, 255, 0.1); }
+        button.danger { background: #ff3333; color: #fff; }
+        button.danger:hover { background: #cc0000; }
         
         .hidden { display: none !important; }
-        .admin-section { animation: slideUp 0.5s ease-out; }
+        .view { animation: fadeIn 0.4s ease-out; }
         
-        .key-list { margin-top: 20px; text-align: left; max-height: 200px; overflow-y: auto; }
-        .key-item { background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 8px; margin-bottom: 8px; font-size: 12px; border-left: 3px solid #fff; }
-        .key-item.used { border-left-color: #555; color: #555; }
+        .key-box { 
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 12px 16px; 
+            border-radius: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;
+            animation: slideIn 0.3s ease-out;
+        }
+        .key-box.used { opacity: 0.4; border-left: 3px solid #555; }
+        .key-code { font-family: monospace; font-size: 14px; color: #fff; font-weight: 600; }
+        .key-time { font-size: 11px; color: #888; }
+        
+        .keys-container { max-height: 250px; overflow-y: auto; margin-top: 20px; padding-right: 5px; }
+        .keys-container::-webkit-scrollbar { width: 4px; }
+        .keys-container::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
         
         .toast {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            background: #fff; color: #000; padding: 12px 24px; border-radius: 30px;
-            font-weight: bold; opacity: 0; transition: opacity 0.3s; pointer-events: none;
+            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(20px);
+            background: #fff; color: #000; padding: 12px 24px; border-radius: 50px; font-weight: 600; font-size: 13px;
+            opacity: 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); pointer-events: none;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
-        .toast.show { opacity: 1; }
-    &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    </style>
+</head>
+<body>
 
-    &lt;div class=&quot;container&quot; id=&quot;mainCard&quot;&gt;
-        &lt;!-- Tela 1: Registrar Nome --&gt;
-        &lt;div id=&quot;registerView&quot;&gt;
-            &lt;h1&gt;Cinder Hub&lt;/h1&gt;
-            &lt;p class=&quot;subtitle&quot;&gt;Identifique-se para continuar&lt;/p&gt;
-            &lt;input type=&quot;text&quot; id=&quot;usernameInput&quot; placeholder=&quot;Coloque seu usuário e registre&quot;&gt;
-            &lt;button onclick=&quot;registerUser()&quot;&gt;Registrar&lt;/button&gt;
-        &lt;/div&gt;
+    <div class="container">
+        <!-- REGISTRO -->
+        <div id="view-register" class="view">
+            <h1>Identificação</h1>
+            <p class="sub">Digite seu usuário para acessar o painel.</p>
+            <input type="text" id="input-user" placeholder="Ex: farmcontagg1">
+            <button onclick="registerUser()">Registrar</button>
+        </div>
 
-        &lt;!-- Tela 2: Login Admin --&gt;
-        &lt;div id=&quot;loginView&quot; class=&quot;hidden&quot;&gt;
-            &lt;h1&gt;Acesso Restrito&lt;/h1&gt;
-            &lt;p class=&quot;subtitle&quot;&gt;Criador do script, digite sua senha&lt;/p&gt;
-            &lt;input type=&quot;password&quot; id=&quot;adminPassInput&quot; placeholder=&quot;Senha de entrada&quot;&gt;
-            &lt;button onclick=&quot;loginAdmin()&quot;&gt;Entrar&lt;/button&gt;
-            &lt;button onclick=&quot;skipAdmin()&quot; style=&quot;background: transparent; border: 1px solid #333; color: #888;&quot;&gt;Apenas Usuário&lt;/button&gt;
-        &lt;/div&gt;
+        <!-- LOGIN ADMIN -->
+        <div id="view-admin-login" class="view hidden">
+            <h1>Acesso Restrito</h1>
+            <p class="sub">Área exclusiva do Criador.</p>
+            <input type="password" id="input-pass" placeholder="Senha de entrada">
+            <button onclick="loginAdmin()">Entrar</button>
+            <button class="secondary" onclick="skipAdmin()">Entrar como Usuário Comum</button>
+        </div>
 
-        &lt;!-- Tela 3: Painel Admin --&gt;
-        &lt;div id=&quot;adminView&quot; class=&quot;hidden admin-section&quot;&gt;
-            &lt;h1&gt;Painel do Criador&lt;/h1&gt;
-            &lt;p class=&quot;subtitle&quot;&gt;Gerencie keys do Cinder Hub&lt;/p&gt;
+        <!-- PAINEL ADMIN -->
+        <div id="view-admin" class="view hidden">
+            <h1>Painel do Criador</h1>
+            <p class="sub">Gerencie as keys do Cinder Hub.</p>
             
-            &lt;div style=&quot;display: flex; gap: 10px; margin-bottom: 15px;&quot;&gt;
-                &lt;select id=&quot;keyDuration&quot;&gt;
-                    &lt;option value=&quot;3600&quot;&gt;1 Hora&lt;/option&gt;
-                    &lt;option value=&quot;36000&quot;&gt;10 Horas&lt;/option&gt;
-                    &lt;option value=&quot;86400&quot;&gt;24 Horas&lt;/option&gt;
-                    &lt;option value=&quot;259200&quot;&gt;3 Dias&lt;/option&gt;
-                    &lt;option value=&quot;432000&quot;&gt;5 Dias&lt;/option&gt;
-                    &lt;option value=&quot;864000&quot;&gt;10 Dias&lt;/option&gt;
-                    &lt;option value=&quot;2592000&quot;&gt;30 Dias&lt;/option&gt;
-                    &lt;option value=&quot;99999999&quot;&gt;Permanente&lt;/option&gt;
-                &lt;/select&gt;
-                &lt;button onclick=&quot;generateKey()&quot; style=&quot;width: 40%;&quot;&gt;Gerar&lt;/button&gt;
-            &lt;/div&gt;
+            <div style="display: flex; gap: 10px;">
+                <select id="select-time" style="flex: 2;">
+                    <option value="3600">1 Hora</option>
+                    <option value="36000">10 Horas</option>
+                    <option value="86400">24 Horas</option>
+                    <option value="259200">3 Dias</option>
+                    <option value="432000">5 Dias</option>
+                    <option value="864000">10 Dias</option>
+                    <option value="2592000">30 Dias</option>
+                    <option value="999999999">Permanente</option>
+                </select>
+                <button onclick="generateKey()" style="flex: 1; margin-bottom: 12px;">Gerar</button>
+            </div>
             
-            &lt;div class=&quot;key-list&quot; id=&quot;keyListContainer&quot;&gt;
-                &lt;!-- Keys vão aparecer aqui --&gt;
-            &lt;/div&gt;
-            &lt;button onclick=&quot;logout()&quot; style=&quot;background: #222; color: #fff; margin-top: 20px;&quot;&gt;Sair&lt;/button&gt;
-        &lt;/div&gt;
+            <button class="danger" onclick="resetKeys()">Resetar Todas as Keys</button>
 
-        &lt;!-- Tela 4: Usuário Comum --&gt;
-        &lt;div id=&quot;userView&quot; class=&quot;hidden admin-section&quot;&gt;
-            &lt;h1&gt;Bem-vindo, &lt;span id=&quot;userNameDisplay&quot;&gt;&lt;/span&gt;&lt;/h1&gt;
-            &lt;p class=&quot;subtitle&quot;&gt;Entre no jogo e coloque sua Key&lt;/p&gt;
-            &lt;button onclick=&quot;logout()&quot; style=&quot;background: #222; color: #fff; margin-top: 20px;&quot;&gt;Sair&lt;/button&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
+            <div class="keys-container" id="keys-list">
+                <!-- Keys vão aparecer aqui -->
+            </div>
+            
+            <button class="secondary" onclick="logout()" style="margin-top: 20px;">Sair</button>
+        </div>
 
-    &lt;div class=&quot;toast&quot; id=&quot;toast&quot;&gt;Aviso&lt;/div&gt;
+        <!-- PAINEL USUÁRIO -->
+        <div id="view-user" class="view hidden">
+            <h1>Bem-vindo, <span id="user-name-display"></span></h1>
+            <p class="sub">Copie a key gerada pelo seu líder e coloque no jogo.</p>
+            <button class="secondary" onclick="logout()">Sair</button>
+        </div>
+    </div>
 
-    &lt;script&gt;
+    <div class="toast" id="toast">Aviso</div>
+
+    <script>
         // ==========================================
-        // CONFIGURAÇÃO DO FIREBASE (COLE SEUS DADOS AQUI)
+        // BLOB ID CONFIGURADO
         // ==========================================
-        const FIREBASE_URL = &quot;https://SEU_PROJETO.firebaseio.com/keys.json&quot;; 
-        const ADMIN_PASSWORD = &quot;552904&quot;;
+        const BLOB_ID = "01a1a914-5de0-7af5-9c8b-d1e035dadafa";
+        const API_URL = `https://jsonblob.com/${BLOB_ID}`;
+        const ADMIN_PASS = "552904";
+        // ==========================================
 
-        // Variáveis de Controle
         let currentUser = localStorage.getItem('cinder_user');
         let isAdmin = localStorage.getItem('cinder_admin') === 'true';
 
-        // Inicialização
-        window.onload = () =&gt; {
+        window.onload = () => {
             if (currentUser) {
-                document.getElementById('userNameDisplay').innerText = currentUser;
-                if (isAdmin) showView('adminView');
-                else showView('userView');
+                document.getElementById('user-name-display').innerText = currentUser;
+                if (isAdmin) { showView('view-admin'); loadKeys(); }
+                else { showView('view-user'); }
             } else {
-                showView('registerView');
+                showView('view-register');
             }
         };
 
@@ -180,44 +149,44 @@
             const t = document.getElementById('toast');
             t.innerText = msg;
             t.classList.add('show');
-            setTimeout(() =&gt; t.classList.remove('show'), 3000);
+            setTimeout(() => t.classList.remove('show'), 3000);
         }
 
-        function showView(viewId) {
-            ['registerView', 'loginView', 'adminView', 'userView'].forEach(v =&gt; document.getElementById(v).classList.add('hidden'));
-            document.getElementById(viewId).classList.remove('hidden');
+        function showView(id) {
+            document.querySelectorAll('.view').forEach(v => v.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
         }
 
         function registerUser() {
-            const name = document.getElementById('usernameInput').value.trim();
-            if (!name) return showToast(&quot;Digite um usuário válido.&quot;);
+            const name = document.getElementById('input-user').value.trim();
+            if (!name) return showToast("Digite um nome válido!");
             
             localStorage.setItem('cinder_user', name);
             currentUser = name;
-            
-            if (name.toLowerCase() === 'criador' || name.toLowerCase() === 'admin' || !localStorage.getItem('first_user_registered')) {
-                localStorage.setItem('first_user_registered', 'true');
-                showView('loginView');
+            document.getElementById('user-name-display').innerText = name;
+
+            if (!localStorage.getItem('cinder_first_time')) {
+                localStorage.setItem('cinder_first_time', 'true');
+                showView('view-admin-login');
             } else {
-                document.getElementById('userNameDisplay').innerText = currentUser;
-                showView('userView');
+                showView('view-user');
             }
         }
 
         function loginAdmin() {
-            const pass = document.getElementById('adminPassInput').value;
-            if (pass === ADMIN_PASSWORD) {
+            const pass = document.getElementById('input-pass').value;
+            if (pass === ADMIN_PASS) {
                 isAdmin = true;
                 localStorage.setItem('cinder_admin', 'true');
-                showView('adminView');
+                showView('view-admin');
                 loadKeys();
             } else {
-                showToast(&quot;Senha incorreta!&quot;);
+                showToast("Senha incorreta!");
             }
         }
 
         function skipAdmin() {
-            showView('userView');
+            showView('view-user');
         }
 
         function logout() {
@@ -227,66 +196,86 @@
         }
 
         // ==========================================
-        // LÓGICA DO FIREBASE (KEYS)
+        // LÓGICA DE DADOS (JSONBLOB)
         // ==========================================
-        async function generateKey() {
-            const duration = parseInt(document.getElementById('keyDuration').value);
-            const key = 'CINDER-' + Math.random().toString(36).substring(2, 10).toUpperCase();
-
-            const payload = {
-                key: key,
-                duration: duration,
-                used: false,
-                created_at: Date.now()
-            };
-
+        async function fetchDatabase() {
             try {
-                // Envia pro Firebase
-                const res = await fetch(FIREBASE_URL, {
-                    method: 'POST',
+                const res = await fetch(API_URL);
+                const data = await res.json();
+                return data || { keys: [] };
+            } catch (e) {
+                return { keys: [] };
+            }
+        }
+
+        async function saveDatabase(data) {
+            try {
+                const res = await fetch(API_URL, {
+                    method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify(data)
                 });
-                
-                if (res.ok) {
-                    showToast(`Key Gerada: ${key}`);
-                    loadKeys();
-                }
-            } catch (err) {
-                showToast(&quot;Erro ao conectar. Configure o Firebase!&quot;);
+                return res.ok;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        async function generateKey() {
+            const duration = parseInt(document.getElementById('select-time').value);
+            const key = "CINDER-" + Math.random().toString(36).substring(2, 8).toUpperCase() + "-" + Math.random().toString(36).substring(2, 6).toUpperCase();
+            
+            const db = await fetchDatabase();
+            db.keys.push({ key: key, duration: duration, used: false, created: Date.now() });
+            
+            if (await saveDatabase(db)) {
+                showToast("Key Gerada: " + key);
+                loadKeys();
+            } else {
+                showToast("Erro ao salvar. Verifique o console.");
+            }
+        }
+
+        async function resetKeys() {
+            if (confirm("Tem certeza que deseja apagar TODAS as keys?")) {
+                await saveDatabase({ keys: [] });
+                loadKeys();
+                showToast("Todas as keys foram resetadas.");
             }
         }
 
         async function loadKeys() {
-            try {
-                const res = await fetch(FIREBASE_URL);
-                const data = await res.json();
-                const container = document.getElementById('keyListContainer');
-                container.innerHTML = '';
+            const container = document.getElementById('keys-list');
+            container.innerHTML = '<p style="color:#555; text-align:center; font-size:12px;">Carregando...</p>';
+            
+            const db = await fetchDatabase();
+            container.innerHTML = '';
 
-                if (!data) {
-                    container.innerHTML = '&lt;p style=&quot;color: #666; text-align: center;&quot;&gt;Nenhuma key gerada.&lt;/p&gt;';
-                    return;
-                }
-
-                for (let id in data) {
-                    const item = data[id];
-                    const div = document.createElement('div');
-                    div.className = `key-item ${item.used ? 'used' : ''}`;
-                    
-                    const durText = item.duration === 99999999 ? 'Permanente' : (item.duration / 3600) + 'h';
-                    div.innerHTML = `
-                        &lt;strong&gt;${item.key}&lt;/strong&gt; - ${durText} &lt;br&gt;
-                        Status: ${item.used ? '🔴 Usada' : '🟢 Disponível'}
-                    `;
-                    container.appendChild(div);
-                }
-            } catch (err) {
-                console.log(&quot;Erro ao carregar keys.&quot;);
+            if (!db.keys || db.keys.length === 0) {
+                container.innerHTML = '<p style="color:#555; text-align:center; font-size:12px;">Nenhuma key criada.</p>';
+                return;
             }
+
+            const sorted = db.keys.sort((a, b) => b.created - a.created);
+            
+            sorted.forEach(k => {
+                const div = document.createElement('div');
+                div.className = "key-box " + (k.used ? "used" : "");
+                
+                let tempoStr = k.duration === 999999999 ? "Permanente" : (k.duration / 3600) + " Horas";
+                
+                div.innerHTML = `
+                    <div>
+                        <div class="key-code">${k.key}</div>
+                        <div class="key-time">${tempoStr}</div>
+                    </div>
+                    <div style="font-size: 11px; font-weight: 600; color: ${k.used ? '#888' : '#00ff88'}">
+                        ${k.used ? 'USADA' : 'LIVRE'}
+                    </div>
+                `;
+                container.appendChild(div);
+            });
         }
-    &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</pre>
+    </script>
 </body>
 </html>
