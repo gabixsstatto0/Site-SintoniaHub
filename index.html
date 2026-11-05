@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 26.2.6.3 (Linux)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="00:00:00"/>
+	<style type="text/css">
+		@page { size: 8.5in 11in; margin: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		pre { background: transparent }
+		pre.western { font-family: "Liberation Mono", monospace; font-size: 10pt }
+		pre.cjk { font-family: "Noto Sans Mono CJK SC", monospace; font-size: 10pt }
+		pre.ctl { font-family: "Liberation Mono", monospace; font-size: 10pt }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr"><pre class="western">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;pt-BR&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Cinder Hub - Key System&lt;/title&gt;
+    &lt;style&gt;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            background: radial-gradient(circle at center, #111 0%, #000 100%);
+        }
+        
+        .container {
+            background: rgba(20, 20, 20, 0.7);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.05);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        h1 { font-size: 28px; margin-bottom: 10px; font-weight: 600; letter-spacing: 1px;}
+        p.subtitle { color: #888; font-size: 14px; margin-bottom: 30px; }
+        
+        input, select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
+        }
+        input:focus, select:focus { border-color: #fff; background: rgba(255, 255, 255, 0.1); box-shadow: 0 0 10px rgba(255,255,255,0.1); }
+        
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+        }
+        button:hover { background: #ccc; transform: scale(1.02); }
+        button:active { transform: scale(0.98); }
+        
+        .hidden { display: none !important; }
+        .admin-section { animation: slideUp 0.5s ease-out; }
+        
+        .key-list { margin-top: 20px; text-align: left; max-height: 200px; overflow-y: auto; }
+        .key-item { background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 8px; margin-bottom: 8px; font-size: 12px; border-left: 3px solid #fff; }
+        .key-item.used { border-left-color: #555; color: #555; }
+        
+        .toast {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: #fff; color: #000; padding: 12px 24px; border-radius: 30px;
+            font-weight: bold; opacity: 0; transition: opacity 0.3s; pointer-events: none;
+        }
+        .toast.show { opacity: 1; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;div class=&quot;container&quot; id=&quot;mainCard&quot;&gt;
+        &lt;!-- Tela 1: Registrar Nome --&gt;
+        &lt;div id=&quot;registerView&quot;&gt;
+            &lt;h1&gt;Cinder Hub&lt;/h1&gt;
+            &lt;p class=&quot;subtitle&quot;&gt;Identifique-se para continuar&lt;/p&gt;
+            &lt;input type=&quot;text&quot; id=&quot;usernameInput&quot; placeholder=&quot;Coloque seu usuário e registre&quot;&gt;
+            &lt;button onclick=&quot;registerUser()&quot;&gt;Registrar&lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Tela 2: Login Admin --&gt;
+        &lt;div id=&quot;loginView&quot; class=&quot;hidden&quot;&gt;
+            &lt;h1&gt;Acesso Restrito&lt;/h1&gt;
+            &lt;p class=&quot;subtitle&quot;&gt;Criador do script, digite sua senha&lt;/p&gt;
+            &lt;input type=&quot;password&quot; id=&quot;adminPassInput&quot; placeholder=&quot;Senha de entrada&quot;&gt;
+            &lt;button onclick=&quot;loginAdmin()&quot;&gt;Entrar&lt;/button&gt;
+            &lt;button onclick=&quot;skipAdmin()&quot; style=&quot;background: transparent; border: 1px solid #333; color: #888;&quot;&gt;Apenas Usuário&lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Tela 3: Painel Admin --&gt;
+        &lt;div id=&quot;adminView&quot; class=&quot;hidden admin-section&quot;&gt;
+            &lt;h1&gt;Painel do Criador&lt;/h1&gt;
+            &lt;p class=&quot;subtitle&quot;&gt;Gerencie keys do Cinder Hub&lt;/p&gt;
+            
+            &lt;div style=&quot;display: flex; gap: 10px; margin-bottom: 15px;&quot;&gt;
+                &lt;select id=&quot;keyDuration&quot;&gt;
+                    &lt;option value=&quot;3600&quot;&gt;1 Hora&lt;/option&gt;
+                    &lt;option value=&quot;36000&quot;&gt;10 Horas&lt;/option&gt;
+                    &lt;option value=&quot;86400&quot;&gt;24 Horas&lt;/option&gt;
+                    &lt;option value=&quot;259200&quot;&gt;3 Dias&lt;/option&gt;
+                    &lt;option value=&quot;432000&quot;&gt;5 Dias&lt;/option&gt;
+                    &lt;option value=&quot;864000&quot;&gt;10 Dias&lt;/option&gt;
+                    &lt;option value=&quot;2592000&quot;&gt;30 Dias&lt;/option&gt;
+                    &lt;option value=&quot;99999999&quot;&gt;Permanente&lt;/option&gt;
+                &lt;/select&gt;
+                &lt;button onclick=&quot;generateKey()&quot; style=&quot;width: 40%;&quot;&gt;Gerar&lt;/button&gt;
+            &lt;/div&gt;
+            
+            &lt;div class=&quot;key-list&quot; id=&quot;keyListContainer&quot;&gt;
+                &lt;!-- Keys vão aparecer aqui --&gt;
+            &lt;/div&gt;
+            &lt;button onclick=&quot;logout()&quot; style=&quot;background: #222; color: #fff; margin-top: 20px;&quot;&gt;Sair&lt;/button&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Tela 4: Usuário Comum --&gt;
+        &lt;div id=&quot;userView&quot; class=&quot;hidden admin-section&quot;&gt;
+            &lt;h1&gt;Bem-vindo, &lt;span id=&quot;userNameDisplay&quot;&gt;&lt;/span&gt;&lt;/h1&gt;
+            &lt;p class=&quot;subtitle&quot;&gt;Entre no jogo e coloque sua Key&lt;/p&gt;
+            &lt;button onclick=&quot;logout()&quot; style=&quot;background: #222; color: #fff; margin-top: 20px;&quot;&gt;Sair&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;toast&quot; id=&quot;toast&quot;&gt;Aviso&lt;/div&gt;
+
+    &lt;script&gt;
+        // ==========================================
+        // CONFIGURAÇÃO DO FIREBASE (COLE SEUS DADOS AQUI)
+        // ==========================================
+        const FIREBASE_URL = &quot;https://SEU_PROJETO.firebaseio.com/keys.json&quot;; 
+        const ADMIN_PASSWORD = &quot;552904&quot;;
+
+        // Variáveis de Controle
+        let currentUser = localStorage.getItem('cinder_user');
+        let isAdmin = localStorage.getItem('cinder_admin') === 'true';
+
+        // Inicialização
+        window.onload = () =&gt; {
+            if (currentUser) {
+                document.getElementById('userNameDisplay').innerText = currentUser;
+                if (isAdmin) showView('adminView');
+                else showView('userView');
+            } else {
+                showView('registerView');
+            }
+        };
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.innerText = msg;
+            t.classList.add('show');
+            setTimeout(() =&gt; t.classList.remove('show'), 3000);
+        }
+
+        function showView(viewId) {
+            ['registerView', 'loginView', 'adminView', 'userView'].forEach(v =&gt; document.getElementById(v).classList.add('hidden'));
+            document.getElementById(viewId).classList.remove('hidden');
+        }
+
+        function registerUser() {
+            const name = document.getElementById('usernameInput').value.trim();
+            if (!name) return showToast(&quot;Digite um usuário válido.&quot;);
+            
+            localStorage.setItem('cinder_user', name);
+            currentUser = name;
+            
+            if (name.toLowerCase() === 'criador' || name.toLowerCase() === 'admin' || !localStorage.getItem('first_user_registered')) {
+                localStorage.setItem('first_user_registered', 'true');
+                showView('loginView');
+            } else {
+                document.getElementById('userNameDisplay').innerText = currentUser;
+                showView('userView');
+            }
+        }
+
+        function loginAdmin() {
+            const pass = document.getElementById('adminPassInput').value;
+            if (pass === ADMIN_PASSWORD) {
+                isAdmin = true;
+                localStorage.setItem('cinder_admin', 'true');
+                showView('adminView');
+                loadKeys();
+            } else {
+                showToast(&quot;Senha incorreta!&quot;);
+            }
+        }
+
+        function skipAdmin() {
+            showView('userView');
+        }
+
+        function logout() {
+            localStorage.removeItem('cinder_user');
+            localStorage.removeItem('cinder_admin');
+            location.reload();
+        }
+
+        // ==========================================
+        // LÓGICA DO FIREBASE (KEYS)
+        // ==========================================
+        async function generateKey() {
+            const duration = parseInt(document.getElementById('keyDuration').value);
+            const key = 'CINDER-' + Math.random().toString(36).substring(2, 10).toUpperCase();
+
+            const payload = {
+                key: key,
+                duration: duration,
+                used: false,
+                created_at: Date.now()
+            };
+
+            try {
+                // Envia pro Firebase
+                const res = await fetch(FIREBASE_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (res.ok) {
+                    showToast(`Key Gerada: ${key}`);
+                    loadKeys();
+                }
+            } catch (err) {
+                showToast(&quot;Erro ao conectar. Configure o Firebase!&quot;);
+            }
+        }
+
+        async function loadKeys() {
+            try {
+                const res = await fetch(FIREBASE_URL);
+                const data = await res.json();
+                const container = document.getElementById('keyListContainer');
+                container.innerHTML = '';
+
+                if (!data) {
+                    container.innerHTML = '&lt;p style=&quot;color: #666; text-align: center;&quot;&gt;Nenhuma key gerada.&lt;/p&gt;';
+                    return;
+                }
+
+                for (let id in data) {
+                    const item = data[id];
+                    const div = document.createElement('div');
+                    div.className = `key-item ${item.used ? 'used' : ''}`;
+                    
+                    const durText = item.duration === 99999999 ? 'Permanente' : (item.duration / 3600) + 'h';
+                    div.innerHTML = `
+                        &lt;strong&gt;${item.key}&lt;/strong&gt; - ${durText} &lt;br&gt;
+                        Status: ${item.used ? '🔴 Usada' : '🟢 Disponível'}
+                    `;
+                    container.appendChild(div);
+                }
+            } catch (err) {
+                console.log(&quot;Erro ao carregar keys.&quot;);
+            }
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+</body>
+</html>
